@@ -3,6 +3,7 @@ version "0.1"
 
 import_types_from "base"
 import_types_from "depth_map_preprocessing/Config.hpp"
+import_types_from 'pcl'
 
 using_library "depth_map_preprocessing"
 
@@ -63,5 +64,16 @@ task_context "PointcloudConverter" do
     needs_configuration
 
     output_port 'pointcloud', '/base/samples/Pointcloud'
+
+end
+
+task_context "PCLPointcloudConverter" do
+    subclasses "ConverterBase"
+    needs_configuration
+
+    # If true usses pcl::PointXYZI to also encode the remissions
+    property('encode_remissions', 'bool', false)
+
+    output_port 'pointcloud', '/pcl/PCLPointCloud2'
 
 end
