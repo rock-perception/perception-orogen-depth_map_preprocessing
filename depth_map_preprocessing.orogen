@@ -26,6 +26,27 @@ task_context "OutlierFilter" do
     port_driven
 end
 
+# This filter will remove a region defined by an horizontal angular range and a distance
+# from the scan.
+task_context "RegionFilter" do
+    needs_configuration
+
+    # Mean angle of the region
+    property('mean_angle', '/base/Angle')
+    
+    # Angular width of the region
+    property('angular_width', 'double', 0.0)
+    
+    # Length of the region from the sensor in meter
+    property('distance', 'double', 0.0)
+
+    input_port 'depth_map', '/base/samples/DepthMap'
+
+    output_port 'filtered_depth_map', '/base/samples/DepthMap'
+
+    port_driven
+end
+
 task_context "ConverterBase" do
     abstract
     needs_configuration
